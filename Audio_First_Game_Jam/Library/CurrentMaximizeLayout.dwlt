@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 709, y: 494}
   m_MaxSize: {x: 22004, y: 14044}
   vertical: 0
-  controlID: 29184
+  controlID: 32153
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_MinSize: {x: 434, y: 494}
   m_MaxSize: {x: 18004, y: 14044}
   vertical: 1
-  controlID: 29185
+  controlID: 32116
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 222}
   m_MaxSize: {x: 8006, y: 4022}
   vertical: 0
-  controlID: 29085
+  controlID: 32018
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -220,9 +220,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -19.187536, y: -3.7595387, z: -14.844509}
+    m_Target: {x: 5.2290077, y: 17.520939, z: -4.8867702}
     speed: 2
-    m_Value: {x: -19.187536, y: -3.7595387, z: -14.844509}
+    m_Value: {x: 5.2290077, y: 17.520939, z: -4.8867702}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -251,13 +251,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.23699129, y: 0.6690037, z: -0.23928879, w: -0.66257936}
+    m_Target: {x: -0.49260676, y: 0.40095806, z: -0.27342844, w: -0.7223642}
     speed: 2
-    m_Value: {x: -0.23699112, y: 0.66900325, z: -0.23928863, w: -0.6625789}
+    m_Value: {x: -0.49260628, y: 0.40095767, z: -0.27342817, w: -0.7223635}
   m_Size:
-    m_Target: 46.91738
+    m_Target: 35.08726
     speed: 2
-    m_Value: 46.91738
+    m_Value: 35.08726
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -430,21 +430,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 78fcfcff5201fdff6615fdff94bfffff1ee7ffff18ecffff0efaffff44faffff76fbffff50310000
+      m_ExpandedIDs: 78fcfcff5201fdff6615fdff94bfffff1ce7ffff1ee7ffff18ecffff0efaffff44faffff76fbffff50310000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: Wall_Left
+        m_OriginalName: Wall_Left
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -6376
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
       m_SearchString: 
@@ -479,7 +479,7 @@ MonoBehaviour:
   m_MinSize: {x: 434, y: 272}
   m_MaxSize: {x: 18004, y: 10022}
   vertical: 0
-  controlID: 29186
+  controlID: 32117
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -535,7 +535,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -187992
+  m_LastSelectedObjectID: -265658
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -653,19 +653,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Player
+    - Assets/Prefabs/Cave_Environment
   m_ViewMode: 1
   m_StartGridSize: 61
   m_LastFolders:
-  - Assets/Prefabs/Player
+  - Assets/Prefabs/Cave_Environment
   m_LastFoldersGridSize: 61
   m_LastProjectPath: /Users/jaidenchicote/Documents/GitHub/Audio_First_Game_Jam/audio-first-game-jam/Audio_First_Game_Jam
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 100.99988}
-    m_SelectedIDs: 864d0000
-    m_LastClickedID: 19846
+    m_SelectedIDs: a4300000
+    m_LastClickedID: 12452
     m_ExpandedIDs: 000000001e2d00009e3000006e31000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -719,9 +719,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: a821fdff
-    m_LastClickedInstanceID: -187992
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 48c7f9ff
+    m_LastClickedInstanceID: -407736
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300000000000082620000ea3e000078380000d83e0000087c000098750100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -813,7 +813,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
-  m_LastInspectedObjectInstanceID: -187992
+  m_LastInspectedObjectInstanceID: -407736
   m_LastVerticalScrollValue: 0
 --- !u!114 &20
 MonoBehaviour:
