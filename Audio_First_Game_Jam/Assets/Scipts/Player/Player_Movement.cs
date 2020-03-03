@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class Player_Movement : MonoBehaviour
 {
+    public enum FootSteps
+    {
+        Dirt,
+        Pebble,
+        Bridge
+    }
+
     [Header("Player Sounds")]
     public AudioClip[] dirt_steps;
     public AudioClip[] pebble_steps;
+    public AudioClip[] bridge_foot;
     public AudioSource playerAudioSource;
+    public FootSteps stepState = FootSteps.Dirt;
     [SerializeField] private int rand_num, last_rand;
     private float rateOfMovementPointer = 0;
 
@@ -60,9 +69,9 @@ public class Player_Movement : MonoBehaviour
 
     #region PUBLIC METHODS
 
-    public void TriggerStepSound(bool is_pebble)
+    public void TriggerStepSound()
     {
-        if (is_pebble)
+        /*if (is_pebble)
         {
             rand_num = Random.Range(0, pebble_steps.Length - 1);
             while (rand_num == last_rand)
@@ -83,6 +92,42 @@ public class Player_Movement : MonoBehaviour
             last_rand = rand_num;
             playerAudioSource.clip = dirt_steps[rand_num];
             playerAudioSource.Play();
+        }*/
+
+        switch (stepState)
+        {
+            case FootSteps.Dirt:
+                rand_num = Random.Range(0, pebble_steps.Length - 1);
+                while (rand_num == last_rand)
+                {
+                    rand_num = Random.Range(0, pebble_steps.Length - 1);
+                }
+                last_rand = rand_num;
+                playerAudioSource.clip = pebble_steps[rand_num];
+                playerAudioSource.Play();
+                break;
+
+            case FootSteps.Pebble:
+                rand_num = Random.Range(0, dirt_steps.Length - 1);
+                while (rand_num == last_rand)
+                {
+                    rand_num = Random.Range(0, dirt_steps.Length - 1);
+                }
+                last_rand = rand_num;
+                playerAudioSource.clip = dirt_steps[rand_num];
+                playerAudioSource.Play();
+                break;
+
+            case FootSteps.Bridge:
+                rand_num = Random.Range(0, bridge_foot.Length - 1);
+                while (rand_num == last_rand)
+                {
+                    rand_num = Random.Range(0, bridge_foot.Length - 1);
+                }
+                last_rand = rand_num;
+                playerAudioSource.clip = bridge_foot[rand_num];
+                playerAudioSource.Play();
+                break;
         }
     }
 
@@ -128,7 +173,7 @@ public class Player_Movement : MonoBehaviour
     {
         if (Time.time > rateOfMovementPointer)
         {
-            TriggerStepSound(false);
+            TriggerStepSound();
             rateOfMovementPointer = Time.time + rate;
         }
     }
@@ -190,5 +235,21 @@ public class Player_Movement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bridge_Platform"))
+        {
+            stepState = FootSteps.Bridge;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Bridge_Platform"))
+        {
+            stepState = FootSteps.Dirt;
+        }
     }
 }
