@@ -11,6 +11,7 @@ public class SoundBank : MonoBehaviour {
     [SerializeField] List<AudioClip> Bank = new List<AudioClip>();
     [SerializeField] int StartIndex = -1;
     [SerializeField] bool PlayOnStart = false;
+    [SerializeField] bool PlayOnCollide = false;
     [SerializeField] bool Loop = false;
     [SerializeField] Vector2 LoopDelay = new Vector2(0, 0);
     [SerializeField] bool RandomiseClipOnLoop = false;
@@ -70,6 +71,10 @@ public class SoundBank : MonoBehaviour {
                 AwaitingLoop = false;
             }
         }
+    }
+
+    public void OnCollisionEnter() {
+        if (PlayOnCollide) Play(RandomiseClipOnLoop);
     }
 
 }
