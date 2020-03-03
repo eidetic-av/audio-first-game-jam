@@ -135,7 +135,7 @@ PrefabInstance:
     - target: {fileID: 7193153956910349609, guid: 28d3c67b808c5b2e3996a40ad787a18d,
         type: 3}
       propertyPath: PlayOnStart
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7193153956910349611, guid: 28d3c67b808c5b2e3996a40ad787a18d,
         type: 3}
@@ -274,7 +274,7 @@ PrefabInstance:
     - target: {fileID: 8681260289747667518, guid: 83d68f0255ecd12f5a6fa7b3fc9e657f,
         type: 3}
       propertyPath: PlayOnStart
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8681260289747667519, guid: 83d68f0255ecd12f5a6fa7b3fc9e657f,
         type: 3}
@@ -431,7 +431,12 @@ PrefabInstance:
     - target: {fileID: 5296450638820946900, guid: 17704caad33f4f124aa64ee33545fb36,
         type: 3}
       propertyPath: PlayOnStart
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5296450638820946900, guid: 17704caad33f4f124aa64ee33545fb36,
+        type: 3}
+      propertyPath: PlayOnCollide
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5296450638820946901, guid: 17704caad33f4f124aa64ee33545fb36,
         type: 3}

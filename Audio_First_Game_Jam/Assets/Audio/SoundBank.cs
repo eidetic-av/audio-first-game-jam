@@ -15,6 +15,8 @@ public class SoundBank : MonoBehaviour {
     [SerializeField] bool Loop = false;
     [SerializeField] Vector2 LoopDelay = new Vector2(0, 0);
     [SerializeField] bool RandomiseClipOnLoop = false;
+    [SerializeField] bool PlayOnMove = false;
+    [SerializeField] Vector2 PlayOnMoveRate = new Vector2(0, 0);
 
     AudioSource audioSource;
     AudioSource AudioSource => audioSource ?? (audioSource = gameObject.GetComponent<AudioSource>());
@@ -22,6 +24,9 @@ public class SoundBank : MonoBehaviour {
     bool PlaybackActive = false;
     bool AwaitingLoop = false;
     float LoopWaitTime = -1f;
+    bool AwaitingPlayOnMove = false;
+    float PlayOnMoveTime = -1f;
+    Vector3 LastPosition;
 
     public void Start() {
         if (Bank.Count == 0) return;
@@ -41,7 +46,10 @@ public class SoundBank : MonoBehaviour {
     public void Play(bool randomise = false) {
         if (AudioSource.isPlaying) AudioSource.Stop();
         if (randomise) {
-            var clipIndex = Mathf.FloorToInt(UnityEngine.Random.Range(0, Bank.Count));
+            var lastIndex = Bank.IndexOf(AudioSource.clip);
+            var clipIndex = -1;
+            while (clipIndex < 0 || clipIndex == lastIndex)
+                clipIndex = Mathf.FloorToInt(UnityEngine.Random.Range(0, Bank.Count));
             AudioSource.clip = Bank[clipIndex];
         }
         AudioSource.Play();
@@ -49,26 +57,46 @@ public class SoundBank : MonoBehaviour {
     }
 
     public void Update() {
-        if (TriggerPlayback) Play();
+        if (TriggerPlayback) {
+            Play();
+            TriggerPlayback = false;
+        }
 
         if (PlaybackActive && !AudioSource.isPlaying) {
             if (!Loop) {
                 PlaybackActive = false;
-                return;
+            } else {
+                // Looping behaviour
+                if (LoopDelay.x == 0 && LoopDelay.y == 0) {
+                    Play(RandomiseClipOnLoop);
+                    return;
+                }
+                if (!AwaitingLoop) {
+                    LoopWaitTime = UnityEngine.Random.Range(LoopDelay.x, LoopDelay.y);
+                    AwaitingLoop = true;
+                    return;
+                }
+                LoopWaitTime -= Time.deltaTime;
+                if (LoopWaitTime <= 0) {
+                    Play(RandomiseClipOnLoop);
+                    AwaitingLoop = false;
+                    return;
+                }
             }
-            if (LoopDelay.x == 0 && LoopDelay.y == 0) {
-                Play(RandomiseClipOnLoop);
-                return;
-            }
-            if (!AwaitingLoop) {
-                LoopWaitTime = UnityEngine.Random.Range(LoopDelay.x, LoopDelay.y);
-                AwaitingLoop = true;
-                return;
-            }
-            LoopWaitTime -= Time.deltaTime;
-            if (LoopWaitTime <= 0) {
-                Play(RandomiseClipOnLoop);
-                AwaitingLoop = false;
+            if (PlayOnMove) {
+                if (!AwaitingPlayOnMove) {
+                    PlayOnMoveTime = UnityEngine.Random.Range(PlayOnMoveRate.x, PlayOnMoveRate.y);
+                    AwaitingPlayOnMove = true;
+                    return;
+                }
+                if (gameObject.transform.position != LastPosition)
+                    PlayOnMoveTime -= Time.deltaTime;
+                LastPosition = gameObject.transform.position;
+                if (PlayOnMoveTime <= 0) {
+                    Play(RandomiseClipOnLoop);
+                    AwaitingPlayOnMove = false;
+                    return;
+                }
             }
         }
     }
