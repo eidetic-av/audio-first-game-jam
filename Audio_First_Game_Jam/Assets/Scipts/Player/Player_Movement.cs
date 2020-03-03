@@ -26,6 +26,9 @@ public class Player_Movement : MonoBehaviour
     public Transform groundCheck;
     public Camera playerCamera;
 
+    [Header("Extra Sound Effects")]
+    public AudioSource extraSoundEffects;
+
     //private bool isGrounded = true;
     //private float currentPitch = 0;
     private float xAxisClamp = 0;
@@ -39,6 +42,7 @@ public class Player_Movement : MonoBehaviour
         playerAudioSource.spread = 360;
         rand_num = 0;
         last_rand = 1;
+        extraSoundEffects = gameObject.AddComponent<AudioSource>();
     }
 
     // Update is called once per frame
