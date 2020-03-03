@@ -9,15 +9,17 @@ public class ClosingDoorScript : MonoBehaviour
     public Rigidbody doorRigidbody;
     public BoxCollider doorCollider;
 
-    //These values can be changed in the inspector
-    public float doorRaiseSpeed;
-    public float doorMaxHeight;
-    public float dropWaitTime;
+    //These values can be changed in the inspector, recommended values listed
+    public float doorRaiseSpeed; //0.02
+    public float doorMaxHeight; //8
+    public float dropWaitTime; //1
 
-    private float yDifference;
+    public AudioSource audioSource;
+    public AudioClip riseSound;
+    public AudioClip fallSound;
 
-    public enum DoorState { Rising, DeadlyFalling, Falling, Stopped };
-    public DoorState doorState = DoorState.Rising;
+    public enum DoorState { Rising, Suspended, DeadlyFalling, Falling, Stopped };
+    public DoorState doorState = DoorState.Stopped;
 
 
     // Start is called before the first frame update
@@ -26,7 +28,9 @@ public class ClosingDoorScript : MonoBehaviour
         doorTransform = GetComponent<Transform>();
         doorRigidbody = GetComponent<Rigidbody>();
         doorCollider = GetComponent<BoxCollider>();
+        audioSource = GetComponent<AudioSource>();
         doorStartPos = doorTransform.position;
+        StartRising();
     }
 
     void FixedUpdate()
@@ -45,23 +49,37 @@ public class ClosingDoorScript : MonoBehaviour
         }
         else
         {
-            DropDoor();
+            SuspendDoor();
+            CheckDoorPosition();
+        }
+    }
+
+    public void SuspendDoor()
+    {
+        //Hold door in the air
+        if (doorState == DoorState.Rising)
+        {
+            doorState = DoorState.Suspended;
+            Invoke("DropDoor", dropWaitTime);
         }
     }
 
     public void DropDoor()
     {
         //Change door to falling and enable triggers
-        if (doorState == DoorState.Rising)
-        {
-            doorState = DoorState.DeadlyFalling;
-            doorRigidbody.useGravity = true;
-            doorCollider.isTrigger = true;
-        }
+        audioSource.clip = fallSound;
+        audioSource.Play();
+        doorState = DoorState.DeadlyFalling;
+        doorRigidbody.useGravity = true;
+        doorCollider.isTrigger = true;
 
+    }
+
+    public void CheckDoorPosition()
+    {
         //If the door has fallen a certain point, it shouldn't kill the player
         //This turns the door into a collider to stop the player from walking past as opposed to killing them
-        if(doorState == DoorState.DeadlyFalling && doorMaxHeight - doorTransform.position.y >= (doorMaxHeight - doorStartPos.y)*0.6)
+        if (doorState == DoorState.DeadlyFalling && doorMaxHeight - doorTransform.position.y >= (doorMaxHeight - doorStartPos.y) * 0.6)
         {
             doorCollider.isTrigger = false;
             doorState = DoorState.Falling;
@@ -82,7 +100,8 @@ public class ClosingDoorScript : MonoBehaviour
         //Kill the player and reset on trigger enter
         if (other.tag == "Player")
         {
-            Debug.Log("Kill player"); //Player dies call here
+            //LevelManager.death("DoorDeath");
+            //LevelManager.respawn();
             doorTransform.position = doorStartPos;
             doorCollider.isTrigger = false;
             StartRising();
@@ -92,6 +111,8 @@ public class ClosingDoorScript : MonoBehaviour
     //Initiates the raising of the door
     public void StartRising()
     {
+        audioSource.clip = riseSound;
+        audioSource.Play();
         doorRigidbody.useGravity = false;
         doorState = DoorState.Rising;
     }

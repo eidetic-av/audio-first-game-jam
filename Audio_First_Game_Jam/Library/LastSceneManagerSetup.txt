@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Jaiden.unity
+- path: Assets/Scenes/Kyle.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
