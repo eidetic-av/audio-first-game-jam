@@ -11,6 +11,7 @@ public class Spikes : MonoBehaviour
     public float delayTime;
     public float moveSpikeUpBy = 1.0f;
     private bool isTrapActive = false;
+    private bool isTrapUsed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,7 @@ public class Spikes : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isTrapActive)
+        if(isTrapActive && !isTrapUsed)
         {
             if (spikes.transform.position != endSpikeLocation)
                 ChangeSpikePosition(endSpikeLocation);
@@ -29,7 +30,18 @@ public class Spikes : MonoBehaviour
         else
         {
             if (spikes.transform.position != originalSpikeLocation)
+            {
+                Debug.Log(originalSpikeLocation);
                 StartCoroutine(DelaySpikeDown());
+                isTrapUsed = true;
+            }
+            else if (spikes.transform.position != endSpikeLocation && spikes.transform.position != originalSpikeLocation && !isTrapUsed)
+            {
+                Debug.Log(endSpikeLocation);
+                ChangeSpikePosition(endSpikeLocation);
+
+            }
+
         }
             
     }
