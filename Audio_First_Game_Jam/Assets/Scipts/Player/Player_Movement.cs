@@ -20,6 +20,11 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] private int rand_num, last_rand;
     private float rateOfMovementPointer = 0;
 
+    //ADDED CODE
+    public static bool inWeb = false;
+    private int struggle = 0;
+    public AudioClip struggleSound;
+
     [Header("Player Movement Values")]
     public float walkSpeed = 4f;
     public float runSpeed = 10f;
@@ -128,6 +133,7 @@ public class Player_Movement : MonoBehaviour
                 playerAudioSource.clip = bridge_foot[rand_num];
                 playerAudioSource.Play();
                 break;
+           
         }
     }
 
@@ -137,27 +143,46 @@ public class Player_Movement : MonoBehaviour
 
     void MovePlayer()
     {
-        if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Horizontal") < 0)
+        //ADDED CODE
+        if (inWeb == false)
         {
-            transform.position += transform.right * Time.deltaTime * walkSpeed * Input.GetAxis("Horizontal");
-            FootStepSound(0.4f);
-        }
-
-        if (Input.GetAxis("Vertical") > 0 || Input.GetAxis("Vertical") < 0)
-        {
-            if (Input.GetAxis("Vertical") > 0 && Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Horizontal") < 0)
             {
-                transform.position += transform.forward * Time.deltaTime * runSpeed * Input.GetAxis("Vertical");
-                FootStepSound(0.3f);
-            }
-            else
-            {
-                transform.position += transform.forward * Time.deltaTime * walkSpeed * Input.GetAxis("Vertical");
-                FootStepSound(0.7f);
-
+                transform.position += transform.right * Time.deltaTime * walkSpeed * Input.GetAxis("Horizontal");
+                FootStepSound(0.4f);
             }
 
+            if (Input.GetAxis("Vertical") > 0 || Input.GetAxis("Vertical") < 0)
+            {
+                if (Input.GetAxis("Vertical") > 0 && Input.GetKey(KeyCode.LeftShift))
+                {
+                    transform.position += transform.forward * Time.deltaTime * runSpeed * Input.GetAxis("Vertical");
+                    FootStepSound(0.3f);
+                }
+                else
+                {
+                    transform.position += transform.forward * Time.deltaTime * walkSpeed * Input.GetAxis("Vertical");
+                    FootStepSound(0.7f);
+
+                }
+
+            }
         }
+        else
+        {
+            if (Input.GetKeyDown("space") || Input.GetKeyDown("w") || Input.GetKeyDown("s") || Input.GetKeyDown("a") || Input.GetKeyDown("d"))
+            {
+                struggle++;
+                playerAudioSource.clip = struggleSound;
+                playerAudioSource.Play();
+            }
+            if (struggle > 10)
+            {
+                Destroy(GameObject.FindWithTag("Web"));
+                inWeb = false;
+            }
+        }
+        
 
         //On Key Release
 
