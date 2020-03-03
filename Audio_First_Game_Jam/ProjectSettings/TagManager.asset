@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wind_Water
   - Bridge_Platform
+  - Ending
   layers:
   - Default
   - TransparentFX
