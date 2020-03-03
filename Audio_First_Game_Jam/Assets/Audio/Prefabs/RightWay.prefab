@@ -100,7 +100,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -205,6 +205,8 @@ MonoBehaviour:
   Loop: 1
   LoopDelay: {x: 0, y: 0}
   RandomiseClipOnLoop: 1
+  PlayOnMove: 0
+  PlayOnMoveRate: {x: 0, y: 0}
 --- !u!65 &6034500701778470102
 BoxCollider:
   m_ObjectHideFlags: 0
